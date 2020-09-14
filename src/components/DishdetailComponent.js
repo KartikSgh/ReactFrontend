@@ -1,0 +1,69 @@
+import React, { Component } from 'react';
+import { Card, CardImg, CardText, CardBody, ul,li,
+    CardTitle } from 'reactstrap';
+
+class DishDetail extends Component {    
+
+    constructor(props) {
+        super(props);
+        this.state = {          
+        };
+      }
+
+    renderDish(dish) {
+        if (dish != null)
+            return(
+                <Card key={dish.id}>
+                    <CardImg top src={dish.image} alt={dish.name} />
+                    <CardBody>
+                      <CardTitle>{dish.name}</CardTitle>
+                      <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            );
+        else
+            return(
+                <div></div>
+            );
+    }
+
+    renderComments(comments) {
+        if (comments != null) {            
+            
+            return(comments.map((singlecomment) => {
+                return(
+                <div>
+                    <ul className="list-unstyled">
+                        <li key={singlecomment.id}>{singlecomment.comment}<br/>
+                        --{singlecomment.author},{singlecomment.date}</li>
+                    </ul>
+                </div>
+                );
+            }));
+            
+        }else
+            return(
+            <div></div>
+            );
+    }
+
+    render() {
+        
+        return (                   
+            <div className="row">
+                <div  className="col-12 col-md-5 m-1">
+                    {this.renderDish(this.props.dish)}
+                </div>
+                <div key={this.props.dish.id} className="col-12 col-md-5 m-1">
+                    <header>
+                    <h4>Comments</h4>
+                    </header>                    
+                    {this.renderComments(this.props.comments)}
+                </div>
+            </div>        
+          
+        );
+    }
+}
+
+export default DishDetail;
