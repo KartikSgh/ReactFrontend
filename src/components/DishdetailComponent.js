@@ -6,7 +6,8 @@ class DishDetail extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {          
+        this.state = {  
+                  
         };
       }
 
@@ -27,19 +28,28 @@ class DishDetail extends Component {
             );
     }
 
-    renderComments(comments) {
-        if (comments != null) {            
-            
-            return(comments.map((singlecomment) => {
+    renderComments(dish) {
+        if (dish != null) {            
+            const comm=dish.comments.map((singlecomment) => {
                 return(
-                <div>
+                <div key={singlecomment.id}>
                     <ul className="list-unstyled">
-                        <li key={singlecomment.id}>{singlecomment.comment}<br/>
-                        --{singlecomment.author},{singlecomment.date}</li>
+                        <li>{singlecomment.comment}<br/>
+                        --{singlecomment.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(singlecomment.date)))}</li>
                     </ul>
                 </div>
                 );
-            }));
+            });
+            return(
+                <div>
+                    <header>
+                        <h4>Comments</h4>
+                    </header>
+                    <div>
+                    {comm}
+                    </div>
+                </div>
+                );
             
         }else
             return(
@@ -49,18 +59,17 @@ class DishDetail extends Component {
 
     render() {
         
-        return (                   
-            <div className="row">
-                <div  className="col-12 col-md-5 m-1">
-                    {this.renderDish(this.props.dish)}
-                </div>
-                <div key={this.props.dish.id} className="col-12 col-md-5 m-1">
-                    <header>
-                    <h4>Comments</h4>
-                    </header>                    
-                    {this.renderComments(this.props.comments)}
-                </div>
-            </div>        
+        return (       
+            <div className="container">            
+                <div className="row">
+                    <div  className="col-12 col-md-5 m-1">
+                        {this.renderDish(this.props.dish)}
+                    </div>
+                    <div className="col-12 col-md-5 m-1">                    
+                        {this.renderComments(this.props.dish)}
+                    </div>
+                </div> 
+            </div>       
           
         );
     }
