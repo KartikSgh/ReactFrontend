@@ -132,16 +132,16 @@ render() {
         if (comments != null) {            
             const comm=comments.map((singlecomment) => {
                 return(
-                <div key={singlecomment.id}>
-                    <ul className="list-unstyled">
-                    <Stagger in>
-                    <Fade in>
-                        <li>{singlecomment.comment}</li>
-                        <li>--{singlecomment.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(singlecomment.date)))}</li>
-                    </Fade>
+                    <Stagger in>                    
+                        <div key={singlecomment.id}>
+                            <ul className="list-unstyled">                           
+                            <Fade in>
+                                <li>{singlecomment.comment}</li>
+                                <li>--{singlecomment.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(singlecomment.date)))}</li>
+                            </Fade>                     
+                            </ul>
+                        </div>                    
                     </Stagger>
-                    </ul>
-                </div>
                 );
             });
             return(
